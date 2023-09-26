@@ -36,3 +36,8 @@ class Animation:
         with suppress(KeyError):
             return self._frames[self.state][self.current_frame]
         return self._default_image
+        
+    def update(self, dt: float) -> None:
+        self._current_frame += self._frame_rate * dt
+        if self._current_frame >= len(self._frames[self.state]):
+            self._current_frame = 0
