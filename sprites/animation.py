@@ -1,20 +1,18 @@
 from contextlib import suppress
-from typing import TypeVar
+from typing import Generic, TypeVar
 
 from pygame import Surface
 from typing_extensions import override
 
-from .image_holder import ImageHolder
-
-AnimationState = TypeVar("AnimationState", bound=object)
+from .image_holder import ImageHolder, StateType
 
 
-class Animation(ImageHolder):
+class Animation(ImageHolder[StateType]):
 
     def __init__(self,
-                 frames: dict[AnimationState, list[Surface]],
+                 frames: dict[StateType, list[Surface]],
                  frame_rate: int,
-                 initial_state: AnimationState,
+                 initial_state: StateType,
                  initial_frame: int = 0,
                  ) -> None:
 
@@ -24,7 +22,7 @@ class Animation(ImageHolder):
         self._current_frame: float = initial_frame
         self._default_image = self.get_image()
 
-    def __getitem__(self, key: AnimationState) -> list[Surface]:
+    def __getitem__(self, key: StateType) -> list[Surface]:
         return self._frames[key]
 
     @property
