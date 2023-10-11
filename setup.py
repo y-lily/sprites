@@ -22,4 +22,6 @@ setuptools.setup(
     license="MIT",
     packages=["sprites"],
     install_requires=requirements,
+    package_data={"sprites": ["py.typed"]},
+    include_package_data=True,
 )
